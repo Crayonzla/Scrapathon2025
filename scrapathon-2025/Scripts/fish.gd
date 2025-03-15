@@ -9,7 +9,6 @@ var difference: Vector2
 
 var can_move = true
 
-@export var time_left = 200
 @export var decay_rate = 0.05
 @export var speed = 200
 @export var target_distance_min_max = Vector2(-1000,1000)
@@ -22,7 +21,6 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	evolve()
-	
 	if can_move:
 		var direction = (target_point - current_point).normalized()
 		velocity = (direction * speed)
@@ -36,7 +34,7 @@ func _process(delta: float) -> void:
 			var time = randi_range(timer_minmax.x, timer_minmax.y)
 			timer1.start(time)
 	
-	percent_left = (time_left/total_time)*100
+	percent_left = (Global.total_health/total_time)*100
 	print(percent_left)
 	
 func check_target_point():
@@ -61,7 +59,7 @@ func get_target_point():
 		can_move = true
 
 func evolve():
-	total_time += decay_rate
+	Global.total_health -= decay_rate
 	if total_time == 0:
 		pass
 
@@ -70,3 +68,5 @@ func animation_manager():
 
 func _on_timer_1_timeout() -> void:
 	check_target_point()
+	
+	
