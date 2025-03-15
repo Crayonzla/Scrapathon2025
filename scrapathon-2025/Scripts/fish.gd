@@ -10,7 +10,7 @@ var difference: Vector2
 var can_move = true
 
 @export var time_left = 200
-@export var decay_rate = 0.01
+@export var decay_rate = 0.05
 @export var speed = 200
 @export var target_distance_min_max = Vector2(-1000,1000)
 @export var timer_minmax = Vector2(0,5)
@@ -53,6 +53,10 @@ func get_target_point():
 	if ttarget_point.x < 0 or ttarget_point.x > ws.x or ttarget_point.y > ws.y or ttarget_point.y < 0:
 		check_target_point()
 	else:
+		if ttarget_point.x > current_point.x:
+			$Sprite2D.flip_h = false
+		if ttarget_point.x < current_point.x:
+			$Sprite2D.flip_h = true
 		target_point = ttarget_point
 		can_move = true
 
