@@ -1,23 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://punp66qi7fj2"]
+[gd_scene load_steps=12 format=3 uid="uid://punp66qi7fj2"]
 
-[ext_resource type="Texture2D" uid="uid://cj63jnopy48d7" path="res://Assets/Drawing Tablet test1.png" id="1_8um3m"]
 [ext_resource type="Script" uid="uid://cat1dt18hnm7a" path="res://Scripts/fish.gd" id="1_j2ykt"]
-
-[sub_resource type="Animation" id="Animation_two43"]
-resource_name = "Stage 1"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [1, 2, 1, 0]
-}
+[ext_resource type="Texture2D" uid="uid://dak6d6dacnpe" path="res://Assets/FishFiles.png" id="2_two43"]
 
 [sub_resource type="Animation" id="Animation_bce5k"]
 length = 0.001
@@ -31,13 +15,122 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [0]
+"values": [12]
+}
+
+[sub_resource type="Animation" id="Animation_two43"]
+resource_name = "Stage 1"
+loop_mode = 1
+step = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [12, 13, 14]
+}
+
+[sub_resource type="Animation" id="Animation_rtied"]
+resource_name = "Stage 2"
+loop_mode = 1
+step = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [15, 9, 8]
+}
+
+[sub_resource type="Animation" id="Animation_bdn1d"]
+resource_name = "Stage 3"
+length = 1.1
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [11, 10]
+}
+
+[sub_resource type="Animation" id="Animation_orbqn"]
+resource_name = "Stage 4"
+length = 1.1
+loop_mode = 1
+step = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [5, 4]
+}
+
+[sub_resource type="Animation" id="Animation_gk10o"]
+resource_name = "Stage 5"
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_3tf33"]
+resource_name = "Stage 6"
+loop_mode = 1
+step = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_rtied"]
 _data = {
 &"RESET": SubResource("Animation_bce5k"),
-&"Stage 1": SubResource("Animation_two43")
+&"Stage 1": SubResource("Animation_two43"),
+&"Stage 2": SubResource("Animation_rtied"),
+&"Stage 3": SubResource("Animation_bdn1d"),
+&"Stage 4": SubResource("Animation_orbqn"),
+&"Stage 5": SubResource("Animation_gk10o"),
+&"Stage 6": SubResource("Animation_3tf33")
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_two43"]
@@ -46,16 +139,18 @@ radius = 124.064
 [node name="Fish" type="CharacterBody2D"]
 script = ExtResource("1_j2ykt")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_8um3m")
-hframes = 3
-
-[node name="Timer1" type="Timer" parent="."]
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_rtied")
 }
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_two43")
+hframes = 4
+vframes = 4
+frame = 12
+
+[node name="Timer1" type="Timer" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Food"]]
 shape = SubResource("CircleShape2D_two43")

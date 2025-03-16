@@ -9,7 +9,6 @@ var moving = false
 func _process(delta):
 	var mouse_position = get_global_mouse_position()
 	var distance_to_mouse = global_position.distance_to(mouse_position) 
-	print(distance_to_mouse)
 	if distance_to_mouse < 500 and moving == false:
 		moving = true
 	if moving:
@@ -19,4 +18,4 @@ func _process(delta):
 
 func _on_body_entered(body: Node2D) -> void:
 	self.queue_free()
-	Global.total_health += 40
+	Global.total_health += 50

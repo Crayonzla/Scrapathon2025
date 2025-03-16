@@ -15,12 +15,15 @@ var can_move = true
 @export var timer_minmax = Vector2(0,5)
 
 @onready var timer1 = $Timer1
+@onready var combustion = preload("res://Scenes/combustion.tscn")
 
 func _ready() -> void:
 	check_target_point()
 
 func _process(delta: float) -> void:
 	evolve()
+	animation_manager()
+
 	if can_move:
 		var direction = (target_point - current_point).normalized()
 		velocity = (direction * speed)
@@ -60,11 +63,26 @@ func get_target_point():
 
 func evolve():
 	Global.total_health -= decay_rate
-	if total_time == 0:
-		pass
+	if Global.total_health <= 0:
+		var combustion_effect = combustion.instantiate()
+		get_tree().current_scene.add_child(combustion_effect)
+		combustion_effect.global_position = self.global_position
+		queue_free()
+
 
 func animation_manager():
-	pass
+	if 80 < percent_left:
+		$AnimationPlayer.play("Stage 1")
+	if 60 < percent_left and percent_left <= 80:
+		$AnimationPlayer.play("Stage 2")
+	if 40 < percent_left and percent_left <= 60:
+		$AnimationPlayer.play("Stage 3")
+	if 20 < percent_left and percent_left <= 40:
+		$AnimationPlayer.play("Stage 4")
+	if 10 < percent_left and percent_left <= 20:
+		$AnimationPlayer.play("Stage 5")
+	if 0 < percent_left and percent_left <= 10:
+		$AnimationPlayer.play("Stage 6")
 
 func _on_timer_1_timeout() -> void:
 	check_target_point()
